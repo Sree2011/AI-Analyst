@@ -1,4 +1,5 @@
 import io
+from dotenv import load_dotenv
 import os
 import base64
 import streamlit as st
@@ -18,7 +19,7 @@ from PIL import Image
 #     model (str): Specifies the model to be used, in this case, "gemini-2.0-flash".
 #     google_api_key (str): The API key required to authenticate and access the Google Generative AI services.
 #     streaming (bool): A boolean flag indicating whether to enable streaming responses.
-
+load_dotenv()
 llm = ChatGoogleGenerativeAI(
     model="gemini-2.0-flash",
     google_api_key = os.getenv("GEMINI_API_KEY"),
