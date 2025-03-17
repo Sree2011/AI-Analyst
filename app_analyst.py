@@ -1,4 +1,5 @@
 import io
+import os
 import base64
 import streamlit as st
 import pandas as pd
@@ -20,7 +21,7 @@ from PIL import Image
 
 llm = ChatGoogleGenerativeAI(
     model="gemini-2.0-flash",
-    google_api_key="AIzaSyDrmiz2LgB8lWR1T3OmJM9kp9VnrUFIr50",
+    google_api_key = os.getenv("GEMINI_API_KEY"),
     streaming=True,
 )
 
