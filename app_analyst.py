@@ -29,7 +29,6 @@ llm = ChatGoogleGenerativeAI(
 #
 # Memory Log for Conversation & File Data
 
-
 if "memory" not in st.session_state:
     st.session_state.memory = {"chat_history": [], "file_data": None, "file_name": None}
 
@@ -55,7 +54,7 @@ def upload_file():
     """Uploads a file and stores the data in the session state memory.
     Args:
         None
-    Returns: 
+    Returns:
         str: A message indicating the success or failure of the file upload.
     """
     uploaded_file = st.file_uploader("Choose a file", type=["csv", "xlsx","json","xml"])
@@ -134,6 +133,19 @@ def summarise_data():
     else:
         return "No file data available for summarization."
 
+
+def compare_columns(column1: str, column2: str, criteria: str):
+    """s 
+    Compares the columns in the uploaded file data.
+    Args:
+        None
+    Returns:
+        str: A message containing the comparison of the columns.
+    """
+    if st.session_state.memory["file_data"] is not None:
+        return st.write(st.session_state.memory["file_data"].columns)
+    else:
+        return "No file data available for column comparison."
 # --------------------------------------------
 # Main Application
 # --------------------------------------------
@@ -154,7 +166,6 @@ elif "heatmap" in query.lower():
     response = plot_heatmap()
 elif "plot" in query.lower():
     response = plot_trends()
-
 else:
     response = "".join(chunk.content for chunk in llm.stream(query)).strip().lower()
 
