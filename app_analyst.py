@@ -220,18 +220,24 @@ def summarise_data():
         return "No file data available for summarization."
 
 
-def compare_columns(column1: str, column2: str, criteria: str):
-    """s 
-    Compares the columns in the uploaded file data.
-    Args:
-        None
-    Returns:
-        str: A message containing the comparison of the columns.
-    """
-    if st.session_state.memory["file_data"] is not None:
-        return st.write(st.session_state.memory["file_data"].columns)
-    else:
-        return "No file data available for column comparison."
+def find_targets():
+
+    data = st.session_state.memory["file_data"]
+
+    # Threshold to consider a column as a potential target
+    threshold = 2  # For example, columns with <=10 unique values
+
+    # Identify candidate target columns
+    candidate_targets = [
+        column for column in data.columns if data[column].nunique() <= threshold
+    ]
+
+    # Display candidate target columns
+    print("Candidate target columns based on unique values:")
+    print(candidate_targets)
+
+# Analyze further if necessary
+
 # --------------------------------------------
 # Main Application
 # --------------------------------------------
@@ -250,6 +256,8 @@ elif "summarise" in query.lower():
     response = summarise_data()
 elif "heatmap" in query.lower():
     response = plot_heatmap()
+elif "compare" in query.lower():
+    response = find_targets()
 elif "plot" in query.lower():
     response = plot_trends()
 elif "visualise" in query.lower():
