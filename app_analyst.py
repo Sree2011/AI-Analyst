@@ -65,7 +65,6 @@ def upload_file():
     Args:
         None
     Returns:
-    Returns:
         str: A message indicating the success or failure of the file upload.
     """
     uploaded_file = st.file_uploader("Choose a file", type=["csv", "xlsx","json","xml"])
@@ -289,7 +288,26 @@ def summarise_data():
         return st.table(st.session_state.memory["file_data"].describe())
     else:
         return "No file data available for summarization."
-
+ 
+ 
+def find_targets():
+ 
+    data = st.session_state.memory["file_data"]
+ 
+    # Threshold to consider a column as a potential target
+    threshold = 2  # For example, columns with <=10 unique values
+ 
+    # Identify candidate target columns
+    candidate_targets = [
+        column for column in data.columns if data[column].nunique() <= threshold
+    ]
+ 
+    # Display candidate target columns
+    print("Candidate target columns based on unique values:")
+    print(candidate_targets)
+ 
+# Analyze further if necessary
+ 
 # --------------------------------------------
 # Main Application
 # --------------------------------------------

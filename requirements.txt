@@ -59,7 +59,7 @@ mdurl==0.1.2
 msgpack==1.1.0
 multidict==6.1.0
 narwhals==1.29.0
-
+xgboost
 numpy==2.2.3
 openai==0.28.0
 orjson==3.10.15
